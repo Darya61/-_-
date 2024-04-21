@@ -1,10 +1,43 @@
-read -p "Enter 1st directory name: " name_1 
-# Будет выведено «Enter your name: », пользователь вводит что-то — например, «Olga»
-echo $name_1
-read -p "Enter 2st directory name: " name_2
-echo $name_2
+#!/bin/bash
 
+read -p "Enter 1st directory name: " input_dir
+# echo $input_dir
+read -p "Enter 2st directory name: " output_dir
+# echo $output_dir
+
+# Проверяем наличие директории input_dir
 if [ ! -d "$input_dir" ]; then
     echo "Директория '$input_dir' не найдена"
     exit 1
 fi
+
+# Проверяем наличие директории output_dir
+if [ ! -d "$output_dir" ]; then
+    echo "Mistake"
+    mkdir "$output_dir"
+fi
+
+#удаляем все элементы из директории output_dir
+find "$1" -type f -delete
+
+#счетчик количества файлов с конкретным названием
+num = 0
+
+
+# Смотрим на все файлы (только файлы, без папок) в директории input_dir
+find "$input_dir" -type f | while read -r file; do
+    
+    filename=$(basename -- "$file")
+
+    # Проверяем, существует ли еще один файл с таким же названием 
+    if [ -e "$output_dir/$filename" ]; then
+        ((num+=1))
+        #файлы будут иметь вид "название файла" + "_" + "номер файла в директории с таким названием"
+        name_of_file ="${filename}_${num}"
+    fi
+
+    # Копируем файл в выходную директорию
+    cp "$file" "$output_dir/$name_of_file"
+done
+
+echo "Файлы успешно перекопированы."
