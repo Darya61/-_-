@@ -1,1 +1,10 @@
-print('Hello world')
+read -p "Enter 1st directory name: " name_1 
+# Будет выведено «Enter your name: », пользователь вводит что-то — например, «Olga»
+echo $name_1
+read -p "Enter 2st directory name: " name_2
+echo $name_2
+
+if [ ! -d "$input_dir" ]; then
+    echo "Директория '$input_dir' не найдена"
+    exit 1
+fi
