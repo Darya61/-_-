@@ -37,7 +37,7 @@ find "$input_dir" -type f | while read -r file; do
         name_of_file ="${filename}_${num}"
     fi
 
-    # Копируем файл в выходную директорию
+    # Копируем файл в output_dir
     cp "$file" "$output_dir/$name_of_file"
 done
 
