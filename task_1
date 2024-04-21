@@ -1,9 +1,11 @@
 #!/bin/bash
 
-read -p "Enter 1st directory name: " input_dir
+#read -p "Enter 1st directory name: " input_dir
 # echo $input_dir
-read -p "Enter 2st directory name: " output_dir
+#read -p "Enter 2st directory name: " output_dir
 # echo $output_dir
+input_dir="$1"
+output_dir="$2"
 
 # Проверяем наличие директории input_dir
 if [ ! -d "$input_dir" ]; then
@@ -21,8 +23,7 @@ fi
 find "$1" -type f -delete
 
 #счетчик количества файлов с конкретным названием
-num = 0
-
+num=0
 
 # Смотрим на все файлы (только файлы, без папок) в директории input_dir
 find "$input_dir" -type f | while read -r file; do
@@ -32,7 +33,7 @@ find "$input_dir" -type f | while read -r file; do
     # Проверяем, существует ли еще один файл с таким же названием 
     if [ -e "$output_dir/$filename" ]; then
         ((num+=1))
-        #файлы будут иметь вид "название файла" + "_" + "номер файла в директории с таким названием"
+        #файлы будут иметь вид "название файла" + "_" + "номер файла в директории с таким названием
         name_of_file ="${filename}_${num}"
     fi
 
